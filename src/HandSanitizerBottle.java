@@ -5,11 +5,11 @@ import java.util.List;
 public class HandSanitizerBottle {
     private String brand;
     private int bottleCapacityML, volumeRemaining;
-    private float alcoholPercentage;
+    private double alcoholPercentage;
     private LocalDate expirationDate;
     private double price;
 
-    public HandSanitizerBottle(String brand, int bottleCapacityML, float alcoholPercentage, LocalDate expirationDate, double price) {
+    public HandSanitizerBottle(String brand, int bottleCapacityML, double alcoholPercentage, LocalDate expirationDate, double price) {
         setBrand(brand);
         setbottleCapacityML(bottleCapacityML);
         setAlcoholPercentage(alcoholPercentage);
@@ -68,11 +68,11 @@ public class HandSanitizerBottle {
             this.volumeRemaining = volumeRemaining;
     }
 
-    public float getAlcoholPercentage() {
+    public double getAlcoholPercentage() {
         return alcoholPercentage;
     }
 
-    public void setAlcoholPercentage(float alcoholPercentage) {
+    public void setAlcoholPercentage(double alcoholPercentage) {
         if (alcoholPercentage>=60 && alcoholPercentage<=99)
             this.alcoholPercentage = alcoholPercentage;
         else

@@ -25,9 +25,19 @@ public class HandSanitizerBottleController implements Initializable {
     @FXML
     private Label msgLabel;
 
+    @FXML
+    private Slider alcoholSlider;
+
+    @FXML
+    private TextField alcoholTextField;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        brandComboBox.getItems().addAll("Utsav's Magic Elixer","Lindsay Speed Cleaner","Michaels Lucky Guesses");
+        msgLabel.setText("");
+
+        //configure the combobox
+        brandComboBox.setPromptText("Select a Brand");
+        brandComboBox.getItems().addAll("Utsav's Elixer", "Bikers' Clean Hand", "Coffee Scent");
 
         //configure the Spinner to handle Integer objects in a valid range
         SpinnerValueFactory<Integer> valueFactory =
@@ -39,10 +49,23 @@ public class HandSanitizerBottleController implements Initializable {
 //        SpinnerChangeListener scl = new SpinnerChangeListener();
 //        spinnerEditor.textProperty().addListener(scl);
 
-        spinnerEditor.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue,
-                                        String oldValue, String newValue) {
+//        spinnerEditor.textProperty().addListener(new ChangeListener<String>() {
+//            @Override
+//            public void changed(ObservableValue<? extends String> observableValue,
+//                                        String oldValue, String newValue) {
+//                try {
+//                    Integer.parseInt(newValue);
+//                    msgLabel.setText("");
+//                } catch (NumberFormatException e)
+//                {
+//                    spinnerEditor.setText(oldValue);
+//                    msgLabel.setTextFill(Color.RED);
+//                    msgLabel.setText("Only whole numbers are allowed");
+//                }
+//            }
+//        });
+        spinnerEditor.textProperty().addListener((observableValue, oldValue, newValue)->
+            {
                 try {
                     Integer.parseInt(newValue);
                     msgLabel.setText("");
@@ -51,19 +74,58 @@ public class HandSanitizerBottleController implements Initializable {
                     spinnerEditor.setText(oldValue);
                     msgLabel.setTextFill(Color.RED);
                     msgLabel.setText("Only whole numbers are allowed");
-
                 }
-            }
+            });
+
+        //configure the Slider
+        alcoholSlider.setMin(70);
+        alcoholSlider.setMax(100);
+        alcoholSlider.setValue(85);
+        alcoholTextField.setText(String.format("%.1f",alcoholSlider.getValue()));
+
+        alcoholSlider.valueProperty().addListener((observableValue, oldValue, newValue)->
+        {
+            alcoholTextField.setText(String.format("%.1f",alcoholSlider.getValue()));
         });
+
+        expiryDatePicker.setPromptText("Select the expiry date");
     }
 
 
-    public void createButtonPushed()
+    public void createButtonPushed() {
+        if (allFieldsHaveValues()) {
+            try {
+                HandSanitizerBottle newBottle = new HandSanitizerBottle(
+                        brandComboBox.getValue(),
+                        capacitySpinner.getValue(),
+                        alcoholSlider.getValue(),
+                        expiryDatePicker.getValue(),
+                        Double.parseDouble(priceTextField.getText()));
+                msgLabel.setText(newBottle.toString());
+            } catch (Exception e) {
+                msgLabel.setText(e.getMessage());
+            }
+        }
+    }
+
+    public boolean allFieldsHaveValues()
     {
-        System.out.printf("The Expiry Date is: %s ", expiryDatePicker.getValue());
-        System.out.printf("The TextField said: '%s'%n", priceTextField.getText());
-        System.out.printf("The ComboBox said: '%s'%n", brandComboBox.getValue());
-    }
+        StringBuilder errorMsg = new StringBuilder();
+        errorMsg.append("Please update the following field(s): ");
+        if (brandComboBox.getValue() == null)
+            errorMsg.append("Brand");
+        if (expiryDatePicker.getValue() == null)
+            errorMsg.append(errorMsg.length()>38?", expiry date":"expiry date");
+        if (priceTextField.getText().isBlank())
+            errorMsg.append(errorMsg.length()>38?", price":"price");
 
+        if (errorMsg.length()>38)
+        {
+            msgLabel.setTextFill(Color.RED);
+            msgLabel.setText(errorMsg.toString());
+            return false;
+        }
+        return true;
+    }
 
 }

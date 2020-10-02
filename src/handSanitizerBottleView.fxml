@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -62,11 +63,16 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
+                  <ComboBox fx:id="brandComboBox" prefHeight="25.0" prefWidth="214.0" GridPane.columnIndex="1" />
+                  <Spinner fx:id="capacitySpinner" prefHeight="25.0" prefWidth="227.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <children>
+                        <Slider fx:id="alcoholSlider" prefHeight="14.0" prefWidth="167.0" />
+                        <TextField fx:id="alcoholTextField" prefHeight="25.0" prefWidth="45.0" />
+                     </children>
+                  </HBox>
                   <DatePicker fx:id="expiryDatePicker" prefHeight="25.0" prefWidth="227.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <TextField fx:id="priceTextField" promptText="Enter Price with 2 decimal places" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <ComboBox fx:id="brandComboBox" prefHeight="25.0" prefWidth="214.0" GridPane.columnIndex="1" />
-                  <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Spinner fx:id="capacitySpinner" prefHeight="25.0" prefWidth="227.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
             <Button mnemonicParsing="false" onAction="#createButtonPushed" text="Create Bottle">
