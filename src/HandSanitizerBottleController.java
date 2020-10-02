@@ -95,12 +95,14 @@ public class HandSanitizerBottleController implements Initializable {
     public void createButtonPushed() {
         if (allFieldsHaveValues()) {
             try {
+                String priceString = priceTextField.getText().replaceAll("[^0-9.]","");
+
                 HandSanitizerBottle newBottle = new HandSanitizerBottle(
                         brandComboBox.getValue(),
                         capacitySpinner.getValue(),
                         alcoholSlider.getValue(),
                         expiryDatePicker.getValue(),
-                        Double.parseDouble(priceTextField.getText()));
+                        Double.parseDouble(priceString));
                 msgLabel.setText(newBottle.toString());
             } catch (Exception e) {
                 msgLabel.setText(e.getMessage());
