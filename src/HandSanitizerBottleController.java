@@ -22,6 +22,9 @@ public class HandSanitizerBottleController implements Initializable {
     @FXML
     private Spinner<Integer> capacitySpinner;
 
+    @FXML
+    private Label msgLabel;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         brandComboBox.getItems().addAll("Utsav's Magic Elixer","Lindsay Speed Cleaner","Michaels Lucky Guesses");
@@ -31,7 +34,27 @@ public class HandSanitizerBottleController implements Initializable {
                 new SpinnerValueFactory.IntegerSpinnerValueFactory(10, 1000, 33);
         capacitySpinner.setValueFactory(valueFactory);
         capacitySpinner.setEditable(true);
+        TextField spinnerEditor = capacitySpinner.getEditor();
 
+//        SpinnerChangeListener scl = new SpinnerChangeListener();
+//        spinnerEditor.textProperty().addListener(scl);
+
+        spinnerEditor.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue,
+                                        String oldValue, String newValue) {
+                try {
+                    Integer.parseInt(newValue);
+                    msgLabel.setText("");
+                } catch (NumberFormatException e)
+                {
+                    spinnerEditor.setText(oldValue);
+                    msgLabel.setTextFill(Color.RED);
+                    msgLabel.setText("Only whole numbers are allowed");
+
+                }
+            }
+        });
     }
 
 

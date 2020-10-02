@@ -74,6 +74,11 @@
                   <Font size="18.0" />
                </font>
             </Button>
+            <Label fx:id="msgLabel" layoutX="289.0" layoutY="421.0" text="Label">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
          </children>
          <padding>
             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
