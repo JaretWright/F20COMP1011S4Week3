@@ -91,6 +91,15 @@ public class HandSanitizerBottleController implements Initializable {
         expiryDatePicker.setPromptText("Select the expiry date");
     }
 
+    @FXML
+    private void alcoholTextFieldUpdated()
+    {
+        //strip out any unwanted characters
+        String newValue = alcoholTextField.getText().replaceAll("[^0-9.]","");
+        double alcohol = Double.parseDouble(newValue);
+        alcoholSlider.setValue(alcohol);
+    }
+
 
     public void createButtonPushed() {
         if (allFieldsHaveValues()) {

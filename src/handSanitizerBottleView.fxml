@@ -68,7 +68,7 @@
                   <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <children>
                         <Slider fx:id="alcoholSlider" prefHeight="14.0" prefWidth="167.0" />
-                        <TextField fx:id="alcoholTextField" prefHeight="25.0" prefWidth="45.0" />
+                        <TextField fx:id="alcoholTextField" onAction="#alcoholTextFieldUpdated" prefHeight="25.0" prefWidth="45.0" />
                      </children>
                   </HBox>
                   <DatePicker fx:id="expiryDatePicker" prefHeight="25.0" prefWidth="227.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
